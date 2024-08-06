@@ -47,7 +47,7 @@ pipeline {
                     // Create a temporary file with the updated image tag
                     sh "sed 's|IMAGE_TAG|${env.DOCKER_IMAGE}:${env.BUILD_ID}|g' deployment.yaml > k8s-deployment-updated.yaml"
                     kubeconfig(credentialsId: "${env.KUBE_CREDENTIALS_ID}", serverUrl: 'https://0.0.0.0:38429') {
-                        sh 'kubectl apply -f deployment.yaml'
+                        sh 'kubectl apply -f k8s-deployment-updated.yaml'
                     }
                 }
             }
